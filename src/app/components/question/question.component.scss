@@ -1,0 +1,111 @@
+ol {
+  margin-top: 15px;
+  margin-left: -40px;
+  cursor: pointer;
+}
+ol li {
+  margin-left: 30px;
+}
+
+.option {
+  border: 2px solid #979797;
+  font-family: "Space Mono", monospace;
+  font-size: 20px;
+  color: #0f0900;
+  background-color: #f5f5f5;
+  width: 38rem !important;
+  height: auto;
+  padding: 5px 5px 0 30px;
+  margin-left: -5px;
+  vertical-align: middle;
+}
+.option:hover {
+  outline: 2px solid #007aff;
+}
+ 
+.form-group #explanation {
+  display: none;
+}
+
+.message-buttons {
+  display: flex;
+  justify-content: center;
+}
+.message {
+  text-align: center;
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  margin-top: 10px !important;
+  padding: 5px !important;
+  width: 31rem !important;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  font-style: italic;
+  font-weight: 900;
+  margin: 0 auto;
+}
+.correct-message {
+  border: 2px solid #007aff;
+  border-radius: 5px;
+  color: #007aff;
+  font-style: italic;
+  font-weight: 900;
+}
+.wrong-message {
+  border: 2px solid #ff0000;
+  border-radius: 5px;
+  color: #ff0000;
+  font-style: italic;
+  font-weight: 900;
+  padding: 5px;
+}
+.proceed {
+  display: block;
+  margin-top: -10px;
+}
+.sentiment {
+  font-size: 30px !important;
+  color: #9acd32;
+}
+
+#explanation {
+  text-align: center;
+  font-size: 20px;
+  font-family: "Space Mono", monospace;
+  color: #0f0900;
+  border: 2px solid #979797;
+  background-color: #f5f5f5;
+  padding: 10px;
+  height: auto;
+  width: 38rem;
+  margin-top: 12px;
+  margin-left: -2px;
+  vertical-align: middle;
+}
+
+mat-radio-group > div {
+  margin-bottom: 5px;
+  padding: 4px;
+}
+
+::ng-deep .mat-radio-button .mat-radio-container {
+  display: none;
+}
+
+.feedback-icon {
+  position: absolute;
+  right: 0;
+  margin-right: 30px;
+  margin-top: -25px;
+}
+
+.initial-state {
+  background-color: #f5f5f5 !important;
+}
+.is-correct {
+  background-color: #00c853 !important;
+}
+.is-incorrect {
+  background-color: #ff0000 !important;
+}

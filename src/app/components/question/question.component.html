@@ -1,0 +1,47 @@
+<ng-content></ng-content>
+
+<form #quizForm="ngForm" [formGroup]="formGroup" (ngSubmit)="onSubmit(quizForm.value)">
+  <ol class="form-group">
+    <mat-radio-group formControlName="answer" name="answer" (change)="radioChange($event.value)"
+      (click)="question.selectedOption = option">
+      <div *ngFor="let option of question.options">
+        <mat-radio-button class="option" [value]="option.optionValue" disableRipple="true"
+          [checked]="question.selectedOption == option"
+          [ngClass]="{'initial-state': initialState(),
+                      'is-correct': isCorrect(option.optionValue),
+                      'is-incorrect': isIncorrect(option.optionValue)}">
+          <li>{{ option.optionText }}</li>
+
+          <mat-icon class="feedback-icon" *ngIf="isCorrect(option.optionValue)">done</mat-icon>
+          <mat-icon class="feedback-icon" *ngIf="isIncorrect(option.optionValue)">clear</mat-icon>
+        </mat-radio-button>
+
+        <div class="message-buttons">
+          <button mat-raised-button class="message correct-message"
+                  *ngIf="isCorrect(option.optionValue)" (click)="nextQuestion()">            
+            <mat-icon class="sentiment" inline="true">sentiment_very_satisfied</mat-icon>
+            <span> You&apos;re right! The correct answer is Option {{ question.answer }}.</span>
+            <span class="proceed" *ngIf="question && question.questionId !== numberOfQuestions">
+              You may proceed to the next question&hellip;
+            </span>
+          </button>
+
+          <button mat-raised-button class="message wrong-message"
+                  *ngIf="isIncorrect(option.optionValue)" (click)="nextQuestion()">            
+            <mat-icon class="sentiment" inline="true">sentiment_very_dissatisfied</mat-icon>
+            <span> That&apos;s incorrect. The correct answer is Option {{ question.answer }}.</span>
+            <span class="proceed" *ngIf="question && question.questionId !== numberOfQuestions">
+              You may proceed to the next question&hellip;
+            </span>
+          </button>
+        </div>
+
+        <div [hidden]="!isCorrect(option.optionValue)">
+          <div id="explanation">
+            Option {{ question.answer }} was correct because {{ question.explanation }}.
+          </div>
+        </div>
+      </div>
+    </mat-radio-group>
+  </ol>
+</form>

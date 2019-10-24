@@ -1,0 +1,93 @@
+<mat-card class="card" *ngIf="question">
+  <ng-container *ngIf="question.questionId <= numberOfQuestions; else quiz_results">
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"></div>
+      <mat-card-title>Angular/TypeScript Codelab Quiz</mat-card-title>
+      <mat-card-subtitle>
+        <span>How well do you know Angular? Take the quiz and find out! </span>
+        <mat-icon class="qa-icon" inline="true">question_answer</mat-icon>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="animated fadeInRight delay-0.5s">
+      <div class="score">
+        <span class="leader">Score:</span>
+        <span class="scoreboard">{{ correctAnswerCount }} / {{ numberOfQuestions }}</span>
+      </div> 
+      <div class="time-left">
+        <span class="leader">Time:</span>
+        <span class="scoreboard">{{ timeLeft }}</span> sec.
+      </div>
+      <div class="no-time-left">
+        <button mat-raised-button class="no-time-left-btn" 
+            *ngIf="timeLeft === 0" (click)="nextQuestion()">
+          <mat-icon class="timer-expired" inline="true">timer</mat-icon>
+          <span> Time&apos;s up!</span>
+          <span class="proceed" *ngIf="question && question.questionId !== numberOfQuestions">
+            You may proceed to the next question&hellip;
+          </span>
+        </button>
+      </div>
+
+      <div class="badge" *ngIf="question.questionId <= numberOfQuestions">
+        Question {{ question.questionId }} of {{ numberOfQuestions }}
+      </div>
+
+      <app-question 
+        [question]="question" 
+        [numberOfQuestions]="numberOfQuestions" 
+        (answer)="answer($event)" 
+        (score)="incrementScore($event)">
+          <div id="question">{{ question.question }}</div>
+      </app-question>
+    </mat-card-content>
+    
+    <mat-card-footer>
+      <mat-card-actions>
+        <div class="paging">
+          <div class="prevQuestion" *ngIf="question && question.questionId !== 1">
+            <button (click)="prevQuestion()">
+              &laquo; Previous
+            </button>
+          </div>
+          <div class="nextQuestion" *ngIf="question && question.questionId <= numberOfQuestions">
+            <button (click)="nextQuestion()">
+              Next &raquo;
+            </button>
+          </div>
+        </div>
+      </mat-card-actions>
+
+      <section class="progress-bar">
+        <ngb-progressbar
+         *ngIf="progressValue <= 100 && question.questionId <= numberOfQuestions; else quiz_start" 
+          type="success" [striped]="true" [animated]="true"
+          [value]="progressValue">
+            <strong>{{ progressValue.toFixed(0) }}%</strong>
+        </ngb-progressbar>
+        <ng-template #quiz_start>
+          <mat-card-subtitle class="progress-note">
+            Please start the quiz and view your progress here&hellip;
+          </mat-card-subtitle>
+        </ng-template>
+      </section>
+    </mat-card-footer>
+  </ng-container>
+  <ng-template #quiz_results>
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"></div>
+      <mat-card-title>Angular/TypeScript Codelab Quiz</mat-card-title>
+      <mat-card-subtitle>Results</mat-card-subtitle>
+    </mat-card-header>
+    <img *ngIf="correctAnswerCount > 2; else try_again" mat-card-image [src]="CONGRATULATIONS" alt="Photo of congratulations">
+    <ng-template #try_again>
+      <img mat-card-image [src]="TRY_AGAIN" alt="Photo of Try again">
+    </ng-template>
+    <mat-card-content>
+      <h4>You got {{ correctAnswerCount }} correct out of {{ numberOfQuestions }} questions.</h4>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button type="button" routerLink="">Try Again</button>
+    </mat-card-actions>
+  </ng-template>
+</mat-card>
